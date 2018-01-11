@@ -1,8 +1,5 @@
 package nyc.c4q.androidtest_unit4final;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,6 +8,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     protected HashMap<String, String> colorDict;
     protected List<String> colorsList;
     private InfoFragment infoFragment = new InfoFragment();
+    private LinearLayout linearLayout;
     private boolean isShowing = true;
 
     @Override
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        linearLayout = findViewById(R.id.fragment_container);
 
         colorDict = new HashMap<>();
         colorDict.put("indigo", "#4b0082");
@@ -99,28 +99,15 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.info:
                 if (isShowing) {
-                    hideFragment();
+                    linearLayout.setVisibility(View.GONE);
+                    isShowing = false;
                 } else {
-                    showFragment();
+                    linearLayout.setVisibility(View.VISIBLE);
+                    isShowing = true;
                 }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    private void showFragment() {
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, infoFragment);
-        fragmentTransaction.commit();
-        isShowing = true;
-    }
-
-    private void hideFragment() {
-        BlankFragment blankFragment = new BlankFragment();
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, blankFragment);
-        fragmentTransaction.commit();
-        isShowing = false;
     }
 }
