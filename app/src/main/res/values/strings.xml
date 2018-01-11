@@ -2,4 +2,10 @@
     <string name="app_name">AndroidTest-Unit4Final</string>
     <string name="app_info">This is the Colors App. It displays a list of color names using a recycler view. The goal is to match color name with its actual color and to display the names in ascending order.</string>
     <string name="more_info">Copyright 2017 @ C4Q. All Rights Reserved.</string>
+    <string name="button">button</string>
+    <string name="info">info</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="more">More</string>
 </resources>

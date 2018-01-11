@@ -1,12 +1,15 @@
 package nyc.c4q.androidtest_unit4final;
 
+import android.content.Context;
 import android.graphics.Color;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +23,7 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ColorViewHol
     private static String TAG = "ColorAdapter";
     private List<String> colorNames;
     private HashMap<String, String> colorDict;
+    private Context context;
 
     public ColorAdapter(List<String> colors, HashMap<String, String> colorMap) {
         Sort.selectionSort(colors, true);
@@ -30,12 +34,13 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ColorViewHol
     @Override
     public ColorViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.color_itemview, parent, false);
+        context = parent.getContext();
         return new ColorViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(ColorViewHolder holder, int position) {
-        String color = colorNames.get(position);
+    public void onBindViewHolder(final ColorViewHolder holder, int position) {
+        final String color = colorNames.get(position);
         holder.name.setText(color);
         try {
             holder.name.setTextColor(Color.parseColor(getColor(color)));
@@ -46,6 +51,13 @@ public class ColorAdapter extends RecyclerView.Adapter<ColorAdapter.ColorViewHol
             // display a long toast with the text "{color_name} has a HEX value of {color_hex}
             // for example: "blue has a HEX value of #0000ff"
         }
+        holder.name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(context, color + " has a HEX value of " + getColor(color), Toast.LENGTH_LONG).show();
+                Log.d(TAG, "onClick: clicked");
+            }
+        });
     }
 
     @Override

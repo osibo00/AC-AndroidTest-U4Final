@@ -22,5 +22,42 @@ public class Sort {
         // You may not use Collections.sort or its equivalent
         // You may not implement another sorting algorithm that is not "selection sort"
         // Tip: Try a version without ordering first.
+        if (isAscending) {
+            stringsAToZ(list);
+        } else {
+            stringsZToA(list);
+        }
+    }
+
+    private static void stringsAToZ(List<String> list) {
+        for (int n = list.size(); n > 0; n--) {
+            int smallest = list.size() - 1;
+            for(int i = 0; i < n; i++) {
+                if (list.get(smallest).compareTo(list.get(i)) < 0) {
+                    smallest = i;
+                }
+            }
+            String temp = list.get(smallest);
+            //list.get(smallest) = list.get(n-1);
+            list.set(smallest, list.get(n-1));
+            //list.get(n-1) = temp;
+            list.set(n-1, temp);
+        }
+    }
+
+    private static void stringsZToA(List<String> list) {
+        for (int n = list.size(); n > 0; n--) {
+            int largest = 0;
+            for(int i = 0; i < n; i++) {
+                if (list.get(i).compareTo(list.get(largest)) < 0) {
+                    largest = i;
+                }
+            }
+            String temp = list.get(largest);
+            //strings[largest] = strings[n-1];
+            list.set(largest, list.get(n-1));
+            //strings[n-1] = temp;
+            list.set(n-1, temp);
+        }
     }
 }
